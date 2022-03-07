@@ -71,15 +71,12 @@ fn main() -> std::io::Result<()>
                             let token = arr.1.unwrap();
                             if token == "MajorNumber" {
                                 major_number = arr.2.unwrap();
-                                println!("MajorNumber : {}", major_number);
                             }
                             else if token == "MinorNumber" {
                                 minor_number = arr.2.unwrap();
-                                println!("MinorNumber : {}", minor_number);
                             }
                             else if token == "BuildNumber" {
                                 build_number = arr.2.unwrap();
-                                println!("BuildNumber : {}", build_number);
                             }
                         }
                     }
@@ -98,6 +95,11 @@ fn main() -> std::io::Result<()>
             minor_number = 0;
             major_number += 1;
         }
+
+        // print for log
+        println!("----- build_inc ------------------------------------");
+        println!("-- Build id will be : {}.{}.{} In file {}", major_number, minor_number, build_number, &file_name);
+        println!("----------------------------------------------------");
 
         // write file
         let file_to_write = File::create(&file_name);
