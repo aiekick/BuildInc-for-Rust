@@ -6,6 +6,16 @@ Rust version of https://github.com/aiekick/BuildInc
 
 the goal of this tool is to increment a build number in a include file c/c++ for the moment
 
+it is important to execute this tool in pre build, for use the new build id. 
+
+the tool will print a message like this one :
+
+```
+----- build_inc ------------------------------------
+-- Build id will be : 5.0.2 In file build.h
+----------------------------------------------------
+```
+
 ## Syntax
 
 the syntax is 
@@ -47,6 +57,4 @@ the include file will contain theses tokens (by ex) :
 #define MajorNumber 0
 #define BuildId "0.5.119"
 ```
-
-
 
