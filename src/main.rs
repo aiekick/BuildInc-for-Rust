@@ -66,14 +66,21 @@ fn main() -> std::io::Result<()>
                 let lines = io::BufReader::new(file).lines();
                 for one_line in lines {
                     if let Ok(line_str) = one_line {
-                        if line_str.contains("BuildNumber") {
-                            println!("BuildNumber : ");
-                        }
-                        else if line_str.contains("MinorNumber") {
-                            println!("MinorNumber : ");
-                        }
-                        else if line_str.contains("MajorNumber") {
-                            println!("MajorNumber : ");
+                        let arr = scan!(line_str, char::is_whitespace, String, String, i32);
+                        if arr.1 != None && arr.2 != None {
+                            let token = arr.1.unwrap();
+                            if token == "MajorNumber" {
+                                major_number = arr.2.unwrap();
+                                println!("MajorNumber : {}", major_number);
+                            }
+                            else if token == "MinorNumber" {
+                                minor_number = arr.2.unwrap();
+                                println!("MinorNumber : {}", minor_number);
+                            }
+                            else if token == "BuildNumber" {
+                                build_number = arr.2.unwrap();
+                                println!("BuildNumber : {}", build_number);
+                            }
                         }
                     }
                 }
@@ -97,10 +104,10 @@ fn main() -> std::io::Result<()>
         match file_to_write {
             Ok(mut file) => {
                 if file.write_all("#pragma once\n".as_ref()).is_err() ||
-                    file.write_fmt(format_args!("#define BuildNumber {}\n", build_number)).is_err() ||
-                    file.write_fmt(format_args!("#define MinorNumber {}\n", minor_number)).is_err() ||
                     file.write_fmt(format_args!("#define MajorNumber {}\n", major_number)).is_err() ||
-                    file.write_fmt(format_args!("#define BuildId {}.{}.{}\n", major_number, minor_number, build_number)).is_err() ||
+                    file.write_fmt(format_args!("#define MinorNumber {}\n", minor_number)).is_err() ||
+                    file.write_fmt(format_args!("#define BuildNumber {}\n", build_number)).is_err() ||
+                    file.write_fmt(format_args!("#define BuildId \"{}.{}.{}\"\n", major_number, minor_number, build_number)).is_err() ||
                     file.sync_all().is_err() {
                     println!("Fail to save file {}", &file_name)
                 }
