@@ -25,13 +25,13 @@ by ex, a rule 1000:10 will do :
 ```
     if (BuildNumber > 1000) 
     {
-      BuildNumber = 0;
-    	MinorNumber++;
+        BuildNumber = 0;
+    	++MinorNumber;
     }
     if (MinorNumber > 10) 
     {
-      MinorNumber = 0;
-    	MajorNumber++;
+        MinorNumber = 0;
+    	++MajorNumber;
     }
 ```
    
